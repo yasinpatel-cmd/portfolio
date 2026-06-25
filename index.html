@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shaikh Yasin Patel | Executive HSE Portfolio</title>
+    <!-- GSAP for Elite Animation Control -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+        :root {
+            --brand-bg: #f3f4f6; /* Slightly darker light gray to make white cards pop immensely */
+            --brand-surface: #ffffff; /* Solid white for absolute maximum contrast */
+            --brand-panel: #f8fafc;
+            --brand-border: #e2e8f0;
+            --steel-blue: #0f172a;
+            --tech-accent: #0284c7;
+            --safety-orange: #ff6b00;
+            --text-primary: #0f172a; /* Deep near-black for perfect readability */
+            --text-secondary: #334155;
+            --success-green: #16a34a;
+            --glow-effect: 0 10px 30px rgba(2, 132, 199, 0.12);
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--brand-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 3D Cinematic Interactive Particle Network - Kept Always Visible in Background */
+        #kpit-particles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Solid High-Contrast Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: #ffffff;
+            border-bottom: 2px solid var(--brand-border);
+            z-index: 100;
+            padding: 1.2rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: 900;
+            font-size: 1.4rem;
+            color: var(--steel-blue);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-logo span { color: var(--safety-orange); }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-right: 2rem;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links a:hover { color: var(--safety-orange); }
+
+        /* Hero Dashboard Layout */
+        .hero-dashboard {
+            position: relative;
+            padding: 11rem 2rem 4rem 2rem;
+            z-index: 1;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 968px) {
+            .hero-container { grid-template-columns: 1fr; gap: 3rem; }
+        }
+
+        .safety-badge {
+            background: #fff7ed;
+            border: 2px solid var(--safety-orange);
+            color: var(--safety-orange);
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pulse-dot {
+            width: 8px; height: 8px;
+            background-color: var(--success-green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--success-green);
+        }
+
+        .hero-title {
+            font-size: 3.4rem;
+            font-weight: 800;
+            color: var(--steel-blue);
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-desc {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Solid White Profile Card Frame with Vibrant Tech Accents */
+        .profile-wrapper {
+            background: var(--brand-surface);
+            border: 2px solid var(--brand-border);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            position: relative;
+            transition: var(--transition-smooth);
+            border-top: 6px solid var(--tech-accent);
+        }
+
+        .profile-wrapper:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--glow-effect), 0 30px 60px rgba(2, 132, 199, 0.15);
+            border-top-color: var(--safety-orange);
+        }
+
+        .profile-img-frame {
+            width: 100%;
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--brand-border);
+        }
+
+        /* Complete portrait framework fix */
+        .profile-img-frame img {
+            width: 100%;
+            height: auto;
+            max-height: 340px;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Solid High-Visibility Contact Blocks */
+        .contact-info-list {
+            margin-top: 1.5rem;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .contact-row-item {
+            background: var(--brand-panel);
+            border: 2px solid var(--brand-border);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .contact-row-item:hover {
+            border-color: var(--tech-accent);
+            background: #f0f9ff;
+            transform: translateX(4px);
+        }
+
+        .contact-row-item .meta-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--safety-orange);
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            margin-bottom: 0.15rem;
+        }
+
+        .contact-row-item .actual-value {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--steel-blue);
+        }
+
+        /* Workspace Setup */
+        .main-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 2rem 4rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-heading {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--steel-blue);
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-heading::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, var(--tech-accent), transparent);
+            margin-left: 1rem;
+        }
+
+        /* Solid Shield Work Matrix Component */
+        .experience-dashboard {
+            background: var(--brand-surface);
+            border: 2px solid var(--brand-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+            margin-bottom: 4rem;
+            transition: var(--transition-smooth);
+        }
+
+        .experience-dashboard:hover {
+            box-shadow: var(--glow-effect);
+            border-color: rgba(2, 132, 199, 0.3);
+        }
+
+        .dashboard-main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            background: var(--brand-panel);
+            padding: 1.25rem;
+            border-radius: 12px;
+            border-left: 6px solid var(--safety-orange);
+            border-right: 1px solid var(--brand-border);
+            border-top: 1px solid var(--brand-border);
+            border-bottom: 1px solid var(--brand-border);
+        }
+
+        .main-role-title { font-size: 1.5rem; font-weight: 800; color: var(--steel-blue); }
+        .main-company-title { color: var(--tech-accent); font-weight: 700; font-size: 1.1rem; margin-top: 0.25rem; }
+        .main-duration-badge { background: var(--steel-blue); color: #fff; padding: 0.5rem 1rem; font-weight: 800; font-size: 0.9rem; border-radius: 6px; }
+
+        .dashboard-split-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 3rem;
+        }
+
+        @media (max-width: 968px) {
+            .dashboard-split-grid { grid-template-columns: 1fr; }
+        }
+
+        .bullet-list-style { list-style: none; }
+        .bullet-list-style li {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 1.25rem;
+            color: var(--text-secondary);
+            font-weight: 600; /* Darker font-weight for ultra high contrast visibility */
+        }
+
+        .bullet-list-style li::before {
+            content: "➔";
+            position: absolute;
+            left: 0;
+            color: var(--safety-orange);
+            font-weight: bold;
+        }
+
+        /* Solid Sub-Project Trajectory Track List */
+        .subprojects-container { display: flex; flex-direction: column; gap: 1.25rem; }
+        
+        .subproject-card {
+            background: var(--brand-panel);
+            border: 1px solid var(--brand-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .subproject-card:hover {
+            transform: translateX(8px);
+            border-color: var(--tech-accent);
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.08);
+            background: #ffffff;
+        }
+
+        .sub-role-tag {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            background: rgba(2, 132, 199, 0.12);
+            color: var(--tech-accent);
+            font-size: 0.75rem; font-weight: 800;
+            padding: 0.3rem 0.75rem; border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .subproject-title { font-size: 1.1rem; font-weight: 800; color: var(--steel-blue); margin-bottom: 0.35rem; padding-right: 8rem; }
+        .subproject-details { font-size: 0.9rem; color: var(--text-secondary); font-weight: 600; }
+
+        /* Solid Chronology Rows */
+        .history-strip-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .history-strip-card {
+            background: var(--brand-surface);
+            border: 2px solid var(--brand-border);
+            padding: 1.5rem;
+            border-radius: 14px;
+            border-left: 5px solid var(--steel-blue);
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .history-strip-card:hover {
+            border-left-color: var(--safety-orange);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .history-date { color: var(--safety-orange); font-weight: 800; font-size: 0.85rem; margin-bottom: 0.25rem; }
+        .history-role { font-weight: 800; font-size: 1.1rem; color: var(--steel-blue); }
+        .history-company { color: var(--tech-accent); font-size: 0.95rem; font-weight: 700; }
+
+        /* Accreditations Framework */
+        .credentials-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .credential-box {
+            background: var(--brand-surface);
+            border: 2px solid var(--brand-border);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            transition: var(--transition-smooth);
+        }
+
+        .credential-box:hover {
+            border-color: var(--tech-accent);
+            box-shadow: var(--glow-effect);
+        }
+
+        .credential-box h4 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--steel-blue);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--brand-border);
+            padding-bottom: 0.5rem;
+        }
+
+        .credential-box ul { list-style: none; }
+        .credential-box ul li {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+
+        .credential-box ul li::before {
+            content: "✓";
+            color: var(--success-green);
+            font-weight: 900;
+        }
+
+        footer {
+            border-top: 2px solid var(--brand-border);
+            background: #ffffff;
+            padding: 3rem 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            margin-top: 5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cinematic High-Graphic Vector Engine Backdrop -->
+    <canvas id="kpit-particles"></canvas>
+
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">SHAIKH YASIN<span>.HSE</span></div>
+            <div class="nav-links">
+                <a href="#experience">Operational Grid</a>
+                <a href="#credentials">Accreditations</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Matrix Section -->
+    <section class="hero-dashboard">
+        <div class="hero-container">
+            <div class="hero-text-block">
+                <div class="safety-badge"><span class="pulse-dot"></span> Site Safety Protocol Active</div>
+                <h1 class="hero-title">Sr. Safety Officer & HSE Trainer</h1>
+                <p class="hero-desc">Over two decades of expert field oversight directing multi-billion dollar industrial plant expansions, environmental asset mapping, and rigorous occupational risk mitigations across KSA and India.</p>
+            </div>
+
+            <!-- Profile Frame Block (No image cutoffs allowed) -->
+            <div class="profile-wrapper">
+                <div class="profile-img-frame">
+                    <img src="profile.jpg" alt="Shaikh Yasin Patel">
+                </div>
+                <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--steel-blue);">Shaikh Yasin Patel</h3>
+                <p style="font-size: 0.95rem; color: var(--tech-accent); font-weight: 700; margin-bottom: 1rem;">Sr. HSE Professional</p>
+                
+                <!-- Highly Visible Plain Text Contact Info Layer Details -->
+                <div class="contact-info-list">
+                    <a href="mailto:yasinpatel0786@gmail.com" class="contact-row-item">
+                        <span class="meta-label">✉ Email Address</span>
+                        <span class="actual-value">yasinpatel0786@gmail.com</span>
+                    </a>
+                    <a href="tel:+966556435401" class="contact-row-item">
+                        <span class="meta-label">📞 Mobile Number Line</span>
+                        <span class="actual-value">+966 556435401</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Layout Framework Matrix -->
+    <main class="main-layout" id="experience">
+        <h2 class="section-heading">Professional Experience Matrix</h2>
+
+        <!-- Active Assignment Block -->
+        <div class="experience-dashboard">
+            <div class="dashboard-main-header">
+                <div>
+                    <h3 class="main-role-title">Sr. Safety Officer / Lead HSE Trainer</h3>
+                    <div class="main-company-title">Nesma and Partners Contracting Co. Ltd. (Al-Khobar, KSA)</div>
+                </div>
+                <span class="main-duration-badge">11/2014 – Present</span>
+            </div>
+
+            <div class="dashboard-split-grid">
+                <div>
+                    <ul class="bullet-list-style">
+                        <li>Develop, implement, and maintain the Project Safety Plan and Job Hazard Analysis (JHA) for all active site operations.</li>
+                        <li>Monitor construction, installation, testing, and commissioning activities to ensure strict compliance with international regulations.</li>
+                        <li>Promote a robust safety culture by training field workers directly to implement a "Think Safety, Work Safely" methodology.</li>
+                        <li>Enforce and monitor strict use of Personal Protective Equipment (PPE) alongside mandatory safety logs.</li>
+                        <li>Conduct daily and weekly toolbox talks, general safety briefings, and critical field awareness drills.</li>
+                        <li>Investigate near-misses, emergency events, or site anomalies, producing accurate regulatory root-cause corrective actions.</li>
+                        <li>Lead, motivate, and verify project teams running loss prevention programs and safe structural deployment tasks.</li>
+                    </ul>
+                </div>
+
+                <!-- Assigned Subprojects List -->
+                <div>
+                    <div class="subprojects-container">
+                        <div class="subproject-card">
+                            <span class="sub-role-tag">Safety Trainer</span>
+                            <div class="subproject-title">The Avenues Mall Project</div>
+                            <div class="subproject-details">Riyadh, KSA | Client: Shomoul, AECOM (10/2023 – Present)</div>
+                        </div>
+                        <div class="subproject-card">
+                            <span class="sub-role-tag">Safety Trainer</span>
+                            <div class="subproject-title">King Faisal Air Academy Project</div>
+                            <div class="subproject-details">Al Majma'ah, KSA | Client: Dar (03/2020 – 09/2023)</div>
+                        </div>
+                        <div class="subproject-card">
+                            <span class="sub-role-tag">Safety Trainer</span>
+                            <div class="subproject-title">Bujairi Car Parking Framework</div>
+                            <div class="subproject-details">Al Bujairi, KSA | Client: Dar Al-Handasah (02/2020 – 03/2020)</div>
+                        </div>
+                        <div class="subproject-card">
+                            <span class="sub-role-tag">Safety Officer</span>
+                            <div class="subproject-title">National Guard Health Affairs Hospitals</div>
+                            <div class="subproject-details">Al-Qassim, KSA | Client: Dar Al-Handasah (01/2020 – 02/2020)</div>
+                        </div>
+                        <div class="subproject-card">
+                            <span class="sub-role-tag">Safety Officer</span>
+                            <div class="subproject-title">Fadhili Gas Program Project</div>
+                            <div class="subproject-details">Jubail, KSA | Client: Tecnicas Reunidas / Saudi Aramco (2017 – 2020)</div>
+                        </div>
+                        <div class="subproject-card">
+                            <span class="sub-role-tag">Safety Officer</span>
+                            <div class="subproject-title">KAUST Town Center Upgrade Package 1</div>
+                            <div class="subproject-details">Thuwal, KSA | Client: Saudi Aramco / KAUST (2014 – 2016)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chronological Historical Tracks -->
+        <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--steel-blue); margin-bottom: 1.5rem;">Historical Chronological Track</h3>
+        <div class="history-strip-row">
+            <div class="history-strip-card">
+                <div class="history-date">08/2009 – 11/2013</div>
+                <div class="history-role">Safety Officer (Aramco Site Inspector)</div>
+                <div class="history-company">Abdullah H. Balharith PRTS & Co. (Jubail, KSA)</div>
+                <p style="font-size: 0.85rem; margin-top: 0.5rem; color: var(--text-secondary); font-style: italic; font-weight: 600;">Managed: Rastanura, Yanbu Pump Stations; PCC Nylon 6.6 Frameworks</p>
+            </div>
+            <div class="history-strip-card">
+                <div class="history-date">03/2006 – 06/2009</div>
+                <div class="history-role">Safety Officer</div>
+                <div class="history-company">Gopinath Engineering Engg. Co. Pvt. Ltd. (Mumbai, India)</div>
+            </div>
+            <div class="history-strip-card">
+                <div class="history-date">09/2003 – 11/2005</div>
+                <div class="history-role">Safety Officer</div>
+                <div class="history-company">Bridge and Roof Co (1) Ltd. (Gujarat, India)</div>
+            </div>
+            <div class="history-strip-card">
+                <div class="history-date">09/2001 – 07/2002</div>
+                <div class="history-role">Safety Officer</div>
+                <div class="history-company">OHCS (Mumbai, India)</div>
+            </div>
+            <div class="history-strip-card">
+                <div class="history-date">02/1999 – 08/2001</div>
+                <div class="history-role">Safety Officer</div>
+                <div class="history-company">Godrej & Boys Ltd. (Mumbai, India)</div>
+            </div>
+            <div class="history-strip-card">
+                <div class="history-date">06/1995 – 12/1998</div>
+                <div class="history-role">Safety Officer</div>
+                <div class="history-company">Jaffer Saleh Al Janab Est. (Dammam, KSA)</div>
+            </div>
+        </div>
+
+        <!-- Accreditations & Training Cards -->
+        <h2 class="section-heading" id="credentials" style="margin-top: 5rem;">Accreditations & Training Frameworks</h2>
+        <div class="credentials-dashboard">
+            <div class="credential-box">
+                <h4>Core Credentials</h4>
+                <ul>
+                    <li>NEBOSH International Award in Health & Safety at Work</li>
+                    <li>36-Hour OSHA Occupational Safety Standard Cert</li>
+                    <li>BSS Advanced Diploma In Occupational Safety & Environmental Management (2018-2019)</li>
+                    <li>Train The Trainer E-Learning Certificate Program</li>
+                    <li>Authorized Gas Testing in Confined Spaces (ASTC)</li>
+                    <li>Chemical & Toxic Waste Management Framework Systems</li>
+                    <li>Heat Stress Prevention Management Systems (NEBOSH)</li>
+                    <li>First Aid / CPR Certified (Dr. Soliman Fakeeh Hospital)</li>
+                </ul>
+            </div>
+            <div class="credential-box">
+                <h4>OSH Academy Stack</h4>
+                <ul>
+                    <li>Introduction to Safety Management Systems</li>
+                    <li>Occupational Safety & Health Supervisor Level</li>
+                    <li>Effective Incident & Accident Investigation Frameworks</li>
+                    <li>Safety Supervision & Workplace Leadership</li>
+                    <li>Confined Space Entry Risk Management Programs</li>
+                    <li>Fire Prevention Planning & Mitigation Guidelines</li>
+                    <li>Personal Protective Equipment Standards Compliance</li>
+                </ul>
+            </div>
+            <div class="credential-box">
+                <h4>KAUST Systems Stack</h4>
+                <ul>
+                    <li>KAUST Train-the-Trainer Course Designation</li>
+                    <li>KAUST Air Quality & Airborne Hazard Management</li>
+                    <li>KAUST Spill Prevention Control & Action Measures</li>
+                    <li>KAUST Waste Water Engineering Management Protocols</li>
+                    <li>MS Office Professional Automation & Logging</li>
+                    <li>MS Project Engineering Planning Suite</li>
+                    <li>H.S.C. Qualification — Maharashtra Board of Education</li>
+                    <li>S.S.C. Qualification — Maharashtra Government School</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Shaikh Yasin Patel. Verified Professional HSE Portfolio.</p>
+    </footer>
+
+    <!-- Connected Grid Engine Script Layout -->
+    <script>
+        const canvas = document.getElementById('kpit-particles');
+        const ctx = canvas.getContext('2d');
+        let nodes = [];
+
+        function scaleCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', scaleCanvas);
+        scaleCanvas();
+
+        class InteractiveNode {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.radius = Math.random() * 2.5 + 1.5;
+            }
+            step() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            render() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(2, 132, 199, 0.25)';
+                ctx.fill();
+            }
+        }
+
+        function createSystem() {
+            nodes = [];
+            let count = window.innerWidth < 768 ? 25 : 65;
+            for (let i = 0; i < count; i++) nodes.push(new InteractiveNode());
+        }
+
+        function renderSystemLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    let dist = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+                    if (dist < 140) {
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.strokeStyle = `rgba(2, 132, 199, ${0.15 * (1 - dist/140)})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            nodes.forEach(n => { n.step(); n.render(); });
+            requestAnimationFrame(renderSystemLoop);
+        }
+        createSystem();
+        renderSystemLoop();
+
+        // GSAP Execution Sequences
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from(".hero-text-block *", { opacity: 0, y: 30, duration: 0.8, stagger: 0.12, ease: "power3.out" });
+        gsap.from(".profile-wrapper", { opacity: 0, scale: 0.96, duration: 0.8, ease: "power2.out" });
+    </script>
+</body>
+</html>
